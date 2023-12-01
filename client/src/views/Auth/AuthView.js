@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import authService from '../services/authService';
-import { useAuthDispatch, useAuthState } from '../store/authContext';
+import authService from '../../services/authService';
+import { useAuthDispatch, useAuthState } from '../../store/authContext';
 import './AuthView.css';
 
 export const AuthView = () => {

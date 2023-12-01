@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './store/authContext';
 import { AuthView } from './views/Auth/AuthView';
-import IndexView from './views/Index/IndexView';
+import { IndexView } from './views/Index/IndexView';
 import './App.css';
 
 function App() {
