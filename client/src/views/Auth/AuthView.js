@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import authService from '../../services/authService';
 import { useAuthDispatch, useAuthState } from '../../store/authContext';
 import './AuthView.css';
@@ -7,15 +8,16 @@ export const AuthView = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
   const dispatch = useAuthDispatch();
   const { user } = useAuthState();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const userData = await authService.login(email, password);
       dispatch({ type: 'LOGIN', payload: userData });
+      navigate('/home');
     } catch (error) {
       setError(error.response.data.message || 'Login failed');
     }
@@ -54,4 +56,4 @@ export const AuthView = () => {
       </form>
     </div>
   );
-}
+};
