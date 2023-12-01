@@ -22,7 +22,7 @@ const loginUser = asyncHandler(async (req,res) => {
     console.log('Login route hit');
     const { email, password } = req.body;
     const findUser = await User.findOne({ email });
-    if (!findUser && (await findUser.isPasswordMatched(password))) {
+    if (findUser && (await findUser.isPasswordMatched(password))) {
         const refreshToken = await generateRefreshToken(findUser?._id);
         await User.findByIdAndUpdate(
             findUser.id,

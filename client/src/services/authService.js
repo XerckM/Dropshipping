@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_URL = 'http://localhost:8000/api/user/';
 
 const login = async (email, password) => {
-  const response = await axios.post(`${API_URL}login`, { email, password });
+  const response = await axios.post(`${API_URL}login`, { email, password }, { withCredentials: true });
   if (response.data.token) {
     localStorage.setItem('user', JSON.stringify(response.data));
   }
