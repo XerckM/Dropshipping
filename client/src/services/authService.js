@@ -10,14 +10,19 @@ const login = async (email, password) => {
   return response.data;
 };
 
-const logout = () => {
-  const response = axios.get(`${API_URL}/logout`, { withCredentials: true });
+const logout = async () => {
+  const response = await axios.get(`${API_URL}/logout`, { withCredentials: true });
   return response.data;
 };
 
-const register = () => {
-  const response = axios.post(`${API_URL}/register`);
-  return response.data;
+const register = async (userData) => {
+  try {
+    const response = await axios.post(`${API_URL}/register`, userData);
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Signup failed:", error.response.data);
+    return { success: false, message: error.response.data };
+  }
 }
 
 const authService = {
