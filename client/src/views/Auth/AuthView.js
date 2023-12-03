@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authService from '../../services/authService';
-import { useAuthDispatch, useAuthState } from '../../store/authContext';
+import { useAuthDispatch } from '../../hooks/useAuthDispatch';
+import { useAuthState } from '../../hooks/useAuthState';
 import './AuthView.css';
 
 export const AuthView = () => {

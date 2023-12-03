@@ -1,28 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useContext } from 'react';
+import { AuthDispatchContext } from '../store/authContext';
 
 const useAuth = () => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // Add a loading state
-
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    if (storedUser) {
-      setUser(storedUser);
-    }
-    setLoading(false); // Set loading to false after user state is initialized
-  }, []);
+  const dispatch = useContext(AuthDispatchContext);
 
   const login = (userData) => {
     localStorage.setItem('user', JSON.stringify(userData));
-    setUser(userData);
+    dispatch({ type: 'LOGIN', payload: userData });
   };
 
   const logout = () => {
     localStorage.removeItem('user');
-    setUser(null);
+    dispatch({ type: 'LOGOUT' });
   };
 
-  return { user, loading, login, logout }; // Include loading in the return value
+  return { login, logout };
 };
 
 export default useAuth;
