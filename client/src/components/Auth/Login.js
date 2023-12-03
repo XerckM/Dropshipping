@@ -8,6 +8,7 @@ export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
     const dispatch = useAuthDispatch();
     const { user } = useAuthState();
     const navigate = useNavigate();
@@ -17,6 +18,7 @@ export const Login = () => {
         try {
             const userData = await authService.login(email, password);
             dispatch({ type: 'LOGIN', payload: userData });
+            setMessage('Login successful');
             navigate('/home');
         } catch (error) {
             setError(error.response.data.message || 'Login failed');
@@ -31,7 +33,6 @@ export const Login = () => {
         <div className="form-container sign-in-container">
         <form onSubmit={handleLogin}>
             <h2>Log In</h2>
-            {error && <div className="error-message">{error}</div>}
             <div className="form">
             <input
                 type="email"
@@ -51,6 +52,7 @@ export const Login = () => {
             />
             </div>
             <button type="submit">Log In</button>
+            {error ? <div className="error-message">{error}</div> : <div className='succes-message'>{message}</div>}
         </form>
         </div>
     );

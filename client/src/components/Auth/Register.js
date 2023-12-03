@@ -18,11 +18,9 @@ export const Register = () => {
         e.preventDefault();
         const response = await authService.register(userData);
         if (response.success) {
-        alert("Registration successful");
         } else {
         // Handle error, show message to user
         console.error(response.message);
-        alert(response.message);
         }
     };
 
