@@ -11,7 +11,8 @@ const login = async (email, password) => {
 };
 
 const logout = () => {
-  localStorage.removeItem('user');
+  const response = axios.get(`${API_URL}logout`, { withCredentials: true });
+  return response.data;
 };
 
 const authService = {
