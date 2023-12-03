@@ -2,32 +2,30 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authService from '../../services/authService';
 import { useAuthDispatch } from '../../hooks/useAuthDispatch';
-import { useAuthState } from '../../hooks/useAuthState';
+import spinner from '../../assets/spinner.gif';
 
 export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useAuthDispatch();
-    const { user } = useAuthState();
     const navigate = useNavigate();
   
     const handleLogin = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             const userData = await authService.login(email, password);
             dispatch({ type: 'LOGIN', payload: userData });
             setMessage('Login successful');
-            navigate('/home');
+            setTimeout(() => navigate('/home'), 3000); // Delay navigation
         } catch (error) {
             setError(error.response.data.message || 'Login failed');
+            setIsLoading(false);
         }
     };
-
-    if (user) {
-        return <div>Welcome back, {user.firstname}!</div>;
-    }
 
     return (
         <div className="form-container sign-in-container">
@@ -52,7 +50,14 @@ export const Login = () => {
             />
             </div>
             <button type="submit">Log In</button>
-            {error ? <div className="error-message">{error}</div> : <div className='succes-message'>{message}</div>}
+            <div className="message-container">
+                {isLoading && <img src={spinner} alt="Loading..." className="spinner" />}
+                {error ? (
+                    <div className="error-message">{error}</div>
+                ) : (
+                    <div className='success-message'>{message}</div>
+                )}
+            </div>
         </form>
         </div>
     );
