@@ -1,60 +1,38 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import authService from '../../services/authService';
-import { useAuthDispatch } from '../../hooks/useAuthDispatch';
-import { useAuthState } from '../../hooks/useAuthState';
-import './AuthView.css';
+import React, { useState } from "react";
+import { Login } from "../../components/Auth/Login";
+import { Register } from "../../components/Auth/Register";
+import "./AuthView.css";
 
 export const AuthView = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const dispatch = useAuthDispatch();
-  const { user } = useAuthState();
-  const navigate = useNavigate();
+  const [move, setMove] = useState(false);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const userData = await authService.login(email, password);
-      dispatch({ type: 'LOGIN', payload: userData });
-      navigate('/home');
-    } catch (error) {
-      setError(error.response.data.message || 'Login failed');
-    }
-  };
-
-  if (user) {
-    return <div>Welcome back, {user.firstname}!</div>;
+  function handleMove() {
+    setMove((move) => !move);
   }
 
+  let togglePanel = move ? " right-panel-active" : "";
   return (
-    <div className="login-container">
-      <form onSubmit={handleLogin}>
-        <h2>Login</h2>
-        {error && <div className="error-message">{error}</div>}
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+    <div className="auth-container">
+      <div className={`container${togglePanel}`} id="container">
+        <Register />
+        <Login />
+        <div className="overlay-container">
+          <div className="overlay">
+            <div className="overlay-panel overlay-left">
+              <h2>Already have an account?</h2>
+              <button className="ghost" onClick={handleMove} id="signIn">
+                Sign In
+              </button>
+            </div>
+            <div className="overlay-panel overlay-right">
+              <h2>Don't have an account?</h2>
+              <button className="ghost" onClick={handleMove} id="signUp">
+                Sign Up
+              </button>
+            </div>
+          </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="login-button">Login</button>
-      </form>
+      </div>
     </div>
   );
 };

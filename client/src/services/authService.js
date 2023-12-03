@@ -15,9 +15,15 @@ const logout = () => {
   return response.data;
 };
 
+const register = () => {
+  const response = axios.post(`${API_URL}/register`);
+  return response.data;
+}
+
 const authService = {
   login,
   logout,
+  register
 };
 
 export default authService;

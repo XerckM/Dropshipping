@@ -13,8 +13,8 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
-            <Route path="/auth" element={<AuthView />} />
             <Route path="/" element={<IndexView />} />
+            <Route path="/auth" element={<AuthView />} />
             <Route path="/home" element={
               <ProtectedRoute>
                 <HomeView />
