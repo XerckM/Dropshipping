@@ -25,10 +25,26 @@ const register = async (userData) => {
   }
 }
 
+const update = async (userData) => {
+  try {
+    const token = JSON.parse(localStorage.getItem("user")).token;
+    const response = await axios.put(`${API_URL}/edit-user`, userData,{
+      headers : {
+        Authorization : `Bearer ${token}`
+      }
+    });
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Update failed:", error.response.data);
+    return { success: false, message: error.response.data };
+  }
+}
+
 const authService = {
   login,
   logout,
-  register
+  register,
+  update
 };
 
 export default authService;

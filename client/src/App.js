@@ -6,6 +6,7 @@ import PublicRoutes from './utils/PublicRoutes';
 import { AuthView } from './views/Auth/AuthView';
 import { HomeView } from './views/Home/HomeView';
 import { IndexView } from './views/Index/IndexView';
+import { ProfileView } from "./views/Profile/ProfileView";
 import { NoPageExists } from "./views/404/404";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
                         </Route>
                         <Route element={<ProtectedRoutes />}>
                             <Route path="/home" element={<HomeView />} />
+                            <Route path="/profile" element={<ProfileView />} />
                         </Route>
                         <Route path="*" element={<NoPageExists />} />
                     </Routes>
