@@ -14,7 +14,12 @@ const useAuth = () => {
     dispatch({ type: 'LOGOUT' });
   };
 
-  return { login, logout };
+  const update = (userData) => {
+    localStorage.setItem('user', JSON.stringify(userData));
+    dispatch({ type: 'UPDATE' });
+  };
+
+  return { login, logout, update };
 };
 
 export default useAuth;
