@@ -90,23 +90,23 @@ const handleRefreshToken = asyncHandler(async (req, res) => {
 });
 
 const updateUser = asyncHandler(async (req, res) => {
-    console.log('Update User route hit');
+    console.log("Update route hit");
     const { _id } = req.user;
     validateId(_id);
     try {
-        const updateUser = await User.findByIdAndUpdate(
-            _id, 
+        const updatedUser = await User.findByIdAndUpdate(
+            _id,
             {
                 firstname: req?.body?.firstname,
                 lastname: req?.body?.lastname,
                 email: req?.body?.email,
                 mobile: req?.body?.mobile,
-            }, 
+            },
             {
                 new: true,
             }
         );
-        res.json(updateUser);
+        res.json(updatedUser);
     } catch (error) {
         throw new Error(error);
     }

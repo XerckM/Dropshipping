@@ -11,6 +11,7 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
                 const decoded = jwt.verify(token, process.env.JWT_KEY);
                 const user = await User.findById(decoded?.id);
                 req.user = user;
+                next();
             }
         } catch (error) {
             throw new Error("Token not authorized. Please login again.");
