@@ -29,36 +29,36 @@ export const Login = () => {
 
     return (
         <div className="form-container sign-in-container">
-        <form onSubmit={handleLogin}>
-            <h2>Log In</h2>
-            <div className="form">
-            <input
-                type="email"
-                id="email"
-                placeholder="Email Address"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-            />
-            </div>
-            <div className="form">
-            <input
-                type="password"
-                id="password"
-                placeholder="Password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-            />
-            </div>
-            <button type="submit">Log In</button>
-            <div className="message-container">
-                {isLoading && <img src={spinner} alt="Loading..." className="spinner" />}
-                {error ? (
-                    <div className="error-message">{error}</div>
-                ) : (
-                    <div className='success-message'>{message}</div>
-                )}
-            </div>
-        </form>
+            <form onSubmit={handleLogin}>
+                <h2>Log In</h2>
+                <div className="form">
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Email Address"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                />
+                </div>
+                <div className="form">
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                />
+                </div>
+                <button type="submit">Log In</button>
+                <div className="message-container">
+                    {isLoading && <img src={spinner} alt="Loading..." style={{ width: '24px', height: '24px', padding: '5px' }} className="spinner" />}
+                    {error ? (
+                        <div className="error-message" style={{ display: 'inline-block' }}>{error}</div>
+                    ) : (
+                        <div className='success-message' style={{ display: 'inline-block' }}>{message}</div>
+                    )}
+                </div>
+            </form>
         </div>
     );
 };

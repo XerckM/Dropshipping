@@ -1,30 +1,32 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './store/authContext';
-import ProtectedRoute from './utils/ProtectedRoute'; // Adjust the import path as needed
+import ProtectedRoutes from './utils/ProtectedRoutes';
+import PublicRoutes from './utils/PublicRoutes';
 import { AuthView } from './views/Auth/AuthView';
-import { HomeView } from './views/Home/HomeView'; // Import HomeView
+import { HomeView } from './views/Home/HomeView';
 import { IndexView } from './views/Index/IndexView';
-import './App.css';
+import { NoPageExists } from "./views/404/404";
 
 function App() {
-  return (
-    <AuthProvider>
-      <Router>
-        <div className="App">
-          <Routes>
-            <Route path="/" element={<IndexView />} />
-            <Route path="/auth" element={<AuthView />} />
-            <Route path="/home" element={
-              <ProtectedRoute>
-                <HomeView />
-              </ProtectedRoute>
-            } />
-          </Routes>
-        </div>
-      </Router>
-    </AuthProvider>
-  );
+    return (
+        <AuthProvider>
+            <Router>
+                <div className="App">
+                    <Routes>
+                        <Route element={<PublicRoutes />}>
+                            <Route path="/" element={<IndexView />} />
+                            <Route path="/auth" element={<AuthView />} />
+                        </Route>
+                        <Route element={<ProtectedRoutes />}>
+                            <Route path="/home" element={<HomeView />} />
+                        </Route>
+                        <Route path="*" element={<NoPageExists />} />
+                    </Routes>
+                </div>
+            </Router>
+        </AuthProvider>
+    )
 }
 
 export default App;
